@@ -27,17 +27,17 @@ const server = http.createServer((request, response) => {
 });
 ```
 
-`request` e `response` As variáveis fornecem a funcionalidade de ler uma request do nosso cliente e enviar uma resposta ao cliente, respectivamente. A request e a response não mantêm seus próprios estados para armazenar dados.
+`request` e `response` são variáveis que fornecem a funcionalidade de ler uma request do nosso cliente e enviar uma response ao cliente, respectivamente. A request e a response não mantêm seus próprios estados para armazenar dados.
 
-Na função acima, estamos enviando uma resposta, onde primeiro escrevemos o cabeçalho da resposta, que tipo de resposta estamos enviando para o navegador ou cliente. No cabeçalho, estamos enviando 200, que é um código de status.
+Na função acima, estamos enviando uma response, onde primeiro escrevemos o cabeçalho da response, que tipo de response estamos enviando para o navegador ou cliente. No cabeçalho, estamos enviando 200, que é um código de status.
 
-O código de status define o tipo de resposta que você deseja enviar, se não encontrou nenhum usuário no banco de dados, conforme a solicitação do usuário, você pode enviar 404, o que significa que não foi encontrado. Código de status 200 significa bem-sucedido. Você pode ler mais sobre os códigos de status em [Official Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).
+O código de status define o tipo de response que você deseja enviar, se não encontrou nenhum usuário no banco de dados, conforme a request do usuário, você pode enviar 404, o que significa que não foi encontrado. Código de status 200 significa bem-sucedido. Você pode ler mais sobre os códigos de status em [Official Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).
 
 E outro parâmetro no cabeçalho é que tipo de dados enviaremos como JSON, texto sem formatação ou HTML. Então, vamos enviar json que definimos `application/json`.
 
 Agora na próxima linha `response.write()` estão passando o objeto json como uma String porque os dados viajam em conexão apenas no formato String.
 
-Vamos terminar nosso fluxo de resposta chamando `response.end()` que diz que a resposta termina aqui para o cliente.
+Vamos terminar nosso fluxo de response chamando `response.end()` que diz que a response termina aqui para o cliente.
 
 Depois disso, vamos vincular nossa variável de servidor a `Listening` evento será emitido para ouvir um número de porta específico.
 
@@ -55,13 +55,13 @@ Sim!!! Agora nosso servidor está rodando
 
 ![node crud server running](https://codeparadox.in/static/54b6ef878927d31d40737890068d9803/c5009/node-crud-server-running.png "node crud server running")
 
-podemos acessar o URL `http://localhost:9000` no postman. vamos ver a resposta.
+podemos acessar o URL `http://localhost:9000` no postman. vamos ver a response.
 
 ![node crud json request](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud json request")
 
-Sim !!!!! nosso servidor está enviando resposta também.
+Sim !!!!! nosso servidor está enviando response também.
 
-Agora podemos ver os cabeçalhos de nossa resposta. No cabeçalho, o Content-Type de nosso aplicativo é application/json/ e algumas outras coisas
+Agora podemos ver os cabeçalhos de nossa response. No cabeçalho, o Content-Type de nosso aplicativo é application/json/ e algumas outras coisas
 
 ![node crud headers response](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud headers response")
 
@@ -142,7 +142,7 @@ response.end();
 
 E para recuperar os dados do lado do cliente. podemos fazer nosso próprio body-parser não ser o mesmo, apenas uma pequena réplica
 
-Se você trabalhou com express js, provavelmente conhece o body-parser. Caso contrário, simplesmente entenda que body-parser é uma biblioteca que extrai toda a parte do corpo de um fluxo de solicitações recebidas e a expõe no `req.body` como algo mais fácil de interagir com.
+Se você trabalhou com express js, provavelmente conhece o body-parser. Caso contrário, simplesmente entenda que body-parser é uma biblioteca que extrai toda a parte do corpo de um fluxo de requests recebidas e a expõe no `req.body` como algo mais fácil de interagir com.
 
 Então, vamos implementar nossa função.
 
@@ -170,9 +170,9 @@ Aqui no código acima, criamos uma função assíncrona bodyParser, na qual esta
 
 O Node é um event-driven io. Portanto, a função bodyParser está ouvindo o erro primeiro, se recebermos um erro do que o prometido será rejeitado, caso contrário, no evento de dados, vamos concatenar todos os dados provenientes do cliente que estão em forma de buffer, portanto, são dados de partes.
 
-Depois que esse evento de solicitação termina, analisamos nossa cadeia total de partes em um objeto JSON, que é uma forma legível e compreensível para nós e, em seguida, atribuímos esse objeto a `request.body`.
+Depois que esse evento de request termina, analisamos nossa cadeia total de partes em um objeto JSON, que é uma forma legível e compreensível para nós e, em seguida, atribuímos esse objeto a `request.body`.
 
-Agora, criamos uma função separada postHandler, na qual temos que aguardar bodyParser depois de enviarmos as informações de contato do usuário de request.body para nossa matriz global ou banco de dados e enviar nossa resposta.
+Agora, criamos uma função separada postHandler, na qual temos que aguardar bodyParser depois de enviarmos as informações de contato do usuário de request.body para nossa matriz global ou banco de dados e enviar nossa response.
 
 ```js
 /_
@@ -211,7 +211,7 @@ response.end()
 })
 ```
 
-Na função do servidor, estamos apenas chamando postHandler no caso Post em que passamos solicitação e resposta no método POST.
+Na função do servidor, estamos apenas chamando postHandler no caso Post em que passamos request e response no método POST.
 
 ![node crud post method request response](https://codeparadox.in/static/643d0afaf5b1e587a5fb5913666028ab/861bd/node-crud-post-method-request-response.png "node crud post method request response")
 
@@ -254,15 +254,15 @@ const getPosts = (request, response) => {
 };
 ```
 
-Acabamos de criar o caso para o método GET, em que caso GET estamos chamando o método `getPosts`, onde estamos passando a solicitação e resposta.
+Acabamos de criar o caso para o método GET, em que caso GET estamos chamando o método `getPosts`, onde estamos passando a request e response.
 
-E no método `getPosts`, estamos apenas escrevendo Headers e Stringfy nosso JSON em String, depois escrevendo Responses for Client e retornando essa resposta.
+E no método `getPosts`, estamos apenas escrevendo Headers e Stringfy nosso JSON em String, depois escrevendo Responses for Client e retornando essa response.
 
 ![node crud response get method response](https://codeparadox.in/static/913dc04120dd9e1c9defe77de7e85e24/861bd/node-crud-response-get-method-response.png "node crud response get method response")
 
 ### Update :
 
-Em Solicitação Put Http, vamos atualizar o banco de dados para contato específico pelo índice de banco de dados.
+Em request Put Http, vamos atualizar o banco de dados para contato específico pelo índice de banco de dados.
 
 Essa não é uma maneira eficiente de atualizar o banco de dados por índice, mas aqui vamos fazer isso e podemos atualizar o ID do contato, mas não criamos um campo de ID no início. Vamos continuar com o índice, mas você pode melhorar fazendo com a identificação de um contato específico.
 
@@ -331,11 +331,11 @@ async function putPosts(request, response) {
 }
 ```
 
-Estamos chamando a função putPosts, na qual é nossa função de manipulador para manipular a solicitação de put onde estamos passando a solicitação e a resposta a ela.
+Estamos chamando a função putPosts, na qual é nossa função de manipulador para manipular a request de put onde estamos passando a request e a response a ela.
 
 outPosts é assíncrono, onde dividimos o URL para obter o valor do seu ID, que nos ajudará a encontrar informações de contato para um usuário específico.
 
-Depois de verificarmos que param é `id` ', chamaremos nosso analisador de corpo e depois atribuímos valor a esse valor de índice específico do que retornar nosso banco de dados como resposta ao cliente.
+Depois de verificarmos que param é `id` ', chamaremos nosso analisador de corpo e depois atribuímos valor a esse valor de índice específico do que retornar nosso banco de dados como response ao cliente.
 
 ![node crud json request](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud json request")
 
@@ -422,7 +422,7 @@ const deletePost = (request, response) => {
 
 ### Conclusão
 
-Implementamos a API REST e a funcionalidade Crud nos nós J sem nenhuma estrutura. Não usei de maneira otimizada. Foi uma das maneiras de implementar. Obrigado pela leitura. Se você encontrou algum problema ou tiver alguma dúvida, por favor [contact](https://codeparadox.in/contact/).
+Implementamos a API REST e a funcionalidade Crud no NODEJS sem nenhum framework. Não usei de maneira otimizada. Foi uma das maneiras de implementar. Obrigado pela leitura. Se você encontrou algum problema ou tiver alguma dúvida, por favor [contact](https://codeparadox.in/contact/).
 
 ### Código Fonte
 
