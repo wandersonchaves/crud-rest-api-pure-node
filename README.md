@@ -11,7 +11,7 @@ Neste post, vamos construir APIs REST no NODEJS do zero, sem nenhum framework e 
 
 ## Configuração do servidor
 
-Vamos requerer o módulo http no arquivo app.js e atribuí-lo à variável http.
+Vamos chamar o módulo http no arquivo app.js e atribuí-lo à variável http.
 
 ```js
 const http = require("http");
@@ -27,19 +27,19 @@ const server = http.createServer((request, response) => {
 });
 ```
 
-`request` and `response` variables provide the functionality to read a request from our client and send back a response to the client respectively. Both request and response don’t maintain their own states to store data.
+`request` e `response` As variáveis fornecem a funcionalidade de ler uma request do nosso cliente e enviar uma resposta ao cliente, respectivamente. A request e a response não mantêm seus próprios estados para armazenar dados.
 
-In the above function, we are sending a response where first we are writing the response header what kind of response we are sending to the browser or client. In the header, we are sending 200 which is a status code.
+Na função acima, estamos enviando uma resposta, onde primeiro escrevemos o cabeçalho da resposta, que tipo de resposta estamos enviando para o navegador ou cliente. No cabeçalho, estamos enviando 200, que é um código de status.
 
-Status code defines what kind of response you want to send like if you didn’t find any user in database as per user's request you can send 404 which means not found. 200 status code means successful. You can read more about the status codes in [Official Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).
+O código de status define o tipo de resposta que você deseja enviar, se não encontrou nenhum usuário no banco de dados, conforme a solicitação do usuário, você pode enviar 404, o que significa que não foi encontrado. Código de status 200 significa bem-sucedido. Você pode ler mais sobre os códigos de status em [Official Docs](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status).
 
-And another parameter in the header is what kind of data we are going to send like JSON, plain text or HTML. So we are going to send json we had defined `application/json`.
+E outro parâmetro no cabeçalho é que tipo de dados enviaremos como JSON, texto sem formatação ou HTML. Então, vamos enviar json que definimos `application/json`.
 
-Now in next line `response.write()` are passing json object as a String because data travels in connection only in String form.
+Agora na próxima linha `response.write()` estão passando o objeto json como uma String porque os dados viajam em conexão apenas no formato String.
 
-Let's end our response stream by calling `response.end()` which tells that response ends here to the client.
+Vamos terminar nosso fluxo de resposta chamando `response.end()` que diz que a resposta termina aqui para o cliente.
 
-After that let's bound our server variable to `Listening` event will be emitted to listen to a specific port number.
+Depois disso, vamos vincular nossa variável de servidor a `Listening` evento será emitido para ouvir um número de porta específico.
 
 ```js
 server.listen(9000, () => {
@@ -47,29 +47,29 @@ server.listen(9000, () => {
 });
 ```
 
-`.listen` is an asynchronous function where we are passing a callback function that will console the string `Server running on Port 9000`.
+`.listen` é uma função assíncrona em que estamos passando uma função de retorno de chamada no console da string `Server running on Port 9000`.
 
-We can now run our program. To run a program open a terminal and go to the app.js's directory and run node app.js
+Agora podemos executar nosso programa. Para executar um programa, abra um terminal e vá para o diretório do app.js e execute o node app.js
 
-Yeah!!! Now our server is running
+Sim!!! Agora nosso servidor está rodando
 
 ![node crud server running](https://codeparadox.in/static/54b6ef878927d31d40737890068d9803/c5009/node-crud-server-running.png "node crud server running")
 
-we can hit the URL `http://localhost:9000` in postman. let's see the response.
+podemos acessar o URL `http://localhost:9000` no postman. vamos ver a resposta.
 
 ![node crud json request](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud json request")
 
-Yess!!!!! our server is sending response too.
+Sim !!!!! nosso servidor está enviando resposta também.
 
-Now we can see our response's Headers. In Header Content-Type of our application is application/json/ and some other stuff.
+Agora podemos ver os cabeçalhos de nossa resposta. No cabeçalho, o Content-Type de nosso aplicativo é application/json/ e algumas outras coisas
 
 ![node crud headers response](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud headers response")
 
-## Creating API
+## Criando API
 
-Let’s move to create an API. For API we need to define the [HTTP Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methodss) and [HTTP Url](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL).
+Vamos começar a criar uma API. Para a API, precisamos definir o [HTTP Method](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methodss) e [HTTP Url](https://developer.mozilla.org/en-US/docs/Learn/Common_questions/What_is_a_URL).
 
-We can Get Url and it’s Method By Request Parameter.
+Podemos obter URL e é o método por Request Parameter
 
 ```js
 const server = http.createServer((request, response) => {
@@ -85,7 +85,7 @@ Console:
 
 ![node crud response get method](https://codeparadox.in/static/d2b5581ec7f6a4b591285a7e983fe656/b40ed/node-crud-response-get-method.png "node crud response get method")
 
-We can differentiate between in URLs with the help of Method and URL.
+Podemos diferenciar entre URLs com a ajuda de Method e URL.
 
 ```js
 const server = http.createServer((request, response) => {
@@ -113,15 +113,15 @@ Response:
 
 ![node crud create api response](https://codeparadox.in/static/dc27bd1d1431c5e3b64ea3bd0e36ec06/861bd/node-crud-create-api-response.png "node crud create api response")
 
-## Crud Application
+## Crud Aplicação
 
-We are going to create REST APIs for small Contact Application where we are going to perform CRUD operations.
+Vamos criar APIs REST para pequenas aplicações de contato, nas quais vamos executar operações CRUD.
 
-For Database let's take an array which we are going to declare at Global Scope. But always remember that if we are going to restart our application then our array will be empty every time.
+Para o banco de dados, vamos usar uma matriz que declararemos no escopo global. Mas lembre-se sempre de que, se formos reiniciar nosso aplicativo, nossa matriz estará vazia toda vez.
 
-### Create :
+### Criar :
 
-Now let’s create a user contact object for that we are going to use the post Http method. In the switch case of our createServer function, we need to make a case for post request.
+Agora vamos criar um objeto de contato do usuário para o qual usaremos o post Http method. No caso de opção de nossa função createServer, precisamos defender uma post request.
 
 ```js
 switch (method) {
@@ -140,11 +140,11 @@ response.end();
 });
 ```
 
-And to retrieve the data from client side. we can make our own body-parser not the same just a small replica.
+E para recuperar os dados do lado do cliente. podemos fazer nosso próprio body-parser não ser o mesmo, apenas uma pequena réplica
 
-If you have worked with express js then you probably familiar with body-parser. If not then just simply understand that body-parser is a library that extracts the entire body portion of an incoming request stream and exposes it on `req.body` as something easier to interface with.
+Se você trabalhou com express js, provavelmente conhece o body-parser. Caso contrário, simplesmente entenda que body-parser é uma biblioteca que extrai toda a parte do corpo de um fluxo de solicitações recebidas e a expõe no `req.body` como algo mais fácil de interagir com.
 
-So let's implement our function.
+Então, vamos implementar nossa função.
 
 ```js
 async function bodyParser(request) {
@@ -166,13 +166,13 @@ async function bodyParser(request) {
 }
 ```
 
-Here in the above code, we made an async bodyParser Function in which we are returning a new Promise in which we have declared a total chunked variable which is a string type.
+Aqui no código acima, criamos uma função assíncrona bodyParser, na qual estamos retornando uma nova promessa na qual declaramos uma variável em partes total, que é um tipo de string.
 
-Node is an event-driven io. So bodyParser Function is listening on error first if we got an error than promise will be rejected if not then on data event we are going to concatenate all data which is coming from the client which is in a buffered form so it is a chunk data.
+O Node é um event-driven io. Portanto, a função bodyParser está ouvindo o erro primeiro, se recebermos um erro do que o prometido será rejeitado, caso contrário, no evento de dados, vamos concatenar todos os dados provenientes do cliente que estão em forma de buffer, portanto, são dados de partes.
 
-After that request event is going to end than we parsed our total chunked string into a JSON object which is a readable and understandable form for us then assigning that object into `request.body`.
+Depois que esse evento de solicitação termina, analisamos nossa cadeia total de partes em um objeto JSON, que é uma forma legível e compreensível para nós e, em seguida, atribuímos esse objeto a `request.body`.
 
-Now we have created a separate function postHandler where we have to await for bodyParser after we are pushing our user contact info from request.body into our global array or DB and sending our response.
+Agora, criamos uma função separada postHandler, na qual temos que aguardar bodyParser depois de enviarmos as informações de contato do usuário de request.body para nossa matriz global ou banco de dados e enviar nossa resposta.
 
 ```js
 /_
@@ -211,15 +211,15 @@ response.end()
 })
 ```
 
-In the server function, we are only calling postHandler in Post case where we have passed request and response in POST method.
+Na função do servidor, estamos apenas chamando postHandler no caso Post em que passamos solicitação e resposta no método POST.
 
 ![node crud post method request response](https://codeparadox.in/static/643d0afaf5b1e587a5fb5913666028ab/861bd/node-crud-post-method-request-response.png "node crud post method request response")
 
-Now our Post is working. Let's move on to Read.
+Agora nosso Post está funcionando. Vamos para o Read.
 
 ### Read :
 
-In read we just basically have to return our DB or array.
+Na leitura, basicamente temos que retornar nosso banco de dados ou matriz.
 
 ```js
 const server = http.createServer((request, response) => {
@@ -254,19 +254,19 @@ const getPosts = (request, response) => {
 };
 ```
 
-We just created the case for GET method wherein GET case we are calling the `getPosts` Method where we are passing the request and response.
+Acabamos de criar o caso para o método GET, em que caso GET estamos chamando o método `getPosts`, onde estamos passando a solicitação e resposta.
 
-And In `getPosts` Method we are just writing Headers and Stringfy our JSON into String then writing Responses for Client and returning that response.
+E no método `getPosts`, estamos apenas escrevendo Headers e Stringfy nosso JSON em String, depois escrevendo Responses for Client e retornando essa resposta.
 
 ![node crud response get method response](https://codeparadox.in/static/913dc04120dd9e1c9defe77de7e85e24/861bd/node-crud-response-get-method-response.png "node crud response get method response")
 
 ### Update :
 
-In Put Http Request we are going to update the db for specific contact by db index.
+Em Solicitação Put Http, vamos atualizar o banco de dados para contato específico pelo índice de banco de dados.
 
-This is not an efficient way to update DB by index but here we are going to do that and we can update on the id of contact but we didn't make an id field in starting so let's continue with the index but you can improve by doing with the id of a particular contact.
+Essa não é uma maneira eficiente de atualizar o banco de dados por índice, mas aqui vamos fazer isso e podemos atualizar o ID do contato, mas não criamos um campo de ID no início. Vamos continuar com o índice, mas você pode melhorar fazendo com a identificação de um contato específico.
 
-So Url is not going to fixed so we are not going to check for fixed url in PUT case.
+Portanto, o URL não será corrigido, portanto não verificaremos o URL fixo no caso PUT.
 
 ```js
 const server = http.createServer((request, response) => {
@@ -331,17 +331,17 @@ async function putPosts(request, response) {
 }
 ```
 
-We are calling putPosts function in which is our handler function to handle put request where we are passing request and response to it.
+Estamos chamando a função putPosts, na qual é nossa função de manipulador para manipular a solicitação de put onde estamos passando a solicitação e a resposta a ela.
 
-putPosts is asynchronous where we are splitting the URL to get our id's value that id will help us to find contact info for a specific user.
+outPosts é assíncrono, onde dividimos o URL para obter o valor do seu ID, que nos ajudará a encontrar informações de contato para um usuário específico.
 
-After we check that param is `id` then we are calling our body-parser after that we just assigning value to that particular index value than returning our DB as a response to the client.
+Depois de verificarmos que param é `id` ', chamaremos nosso analisador de corpo e depois atribuímos valor a esse valor de índice específico do que retornar nosso banco de dados como resposta ao cliente.
 
 ![node crud json request](https://codeparadox.in/static/5bb4312567653d1feb85f8685570b99c/861bd/node-crud-json-request.png "node crud json request")
 
 ### Delete :
 
-So similarly like we implemented PUT case and we going to implement DELETE case with a little tweak in `deletePost` handler function we are going to splice array on the particular requested index.
+Da mesma forma que implementamos o caso PUT e vamos implementar o caso DELETE com um pequeno ajuste na função do manipulador `deletePost`, vamos dividir a matriz no índice solicitado em particular.
 
 ```js
 const deletePost = (request, response) => {
@@ -420,11 +420,11 @@ const deletePost = (request, response) => {
 };
 ```
 
-### Conclusion
+### Conclusão
 
-We have implemented REST API and Crud Functionality in Node Js without any framework. I didn't use an optimized way. It was one of the ways to implement. Thanks for reading. if you found any issues or you have any query please [contact](https://codeparadox.in/contact/).
+Implementamos a API REST e a funcionalidade Crud nos nós J sem nenhuma estrutura. Não usei de maneira otimizada. Foi uma das maneiras de implementar. Obrigado pela leitura. Se você encontrou algum problema ou tiver alguma dúvida, por favor [contact](https://codeparadox.in/contact/).
 
-### Source Code
+### Código Fonte
 
 #### App.js
 
